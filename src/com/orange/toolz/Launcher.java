@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 public class Launcher {
     public static void main(String[] args) {
 
-        /*ExecutorService service = Executors.newSingleThreadExecutor();
+        ExecutorService service = Executors.newSingleThreadExecutor();
         try {
             long startTime = System.currentTimeMillis() / 1000;
             System.out.println("Please keep patients. Task is running. It will take 5-10 min depending upon you hardware");
@@ -33,7 +33,7 @@ public class Launcher {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
         /*
@@ -41,7 +41,7 @@ public class Launcher {
         *  for finding fast finding duplicate records
         * */
 
-        /*ExecutorService indexService = Executors.newFixedThreadPool(2);
+        ExecutorService indexService = Executors.newFixedThreadPool(2);
         ArrayList<IndexCreatingTask> tasks = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             tasks.add(new IndexCreatingTask(i));
@@ -60,19 +60,19 @@ public class Launcher {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }*/
+        }
 
         /*
         *  Getting invalid user list
         * */
 
         ExecutorService invalidUserService = Executors.newFixedThreadPool(1);
-        ArrayList<QueryOperationTask> tasks = new ArrayList<>();
-        tasks.add(new QueryOperationTask(0));
+        ArrayList<QueryOperationTask> querytasks = new ArrayList<>();
+        querytasks.add(new QueryOperationTask(0));
         try {
             long startTime = System.currentTimeMillis() / 1000;
             System.out.println("Please keep patients. Getting Invalid Users.");
-            List<Future<ArrayList<UserDetail>>> futures = invalidUserService.invokeAll(tasks);
+            List<Future<ArrayList<UserDetail>>> futures = invalidUserService.invokeAll(querytasks);
             for (Future future : futures) {
                 ArrayList<UserDetail> reuslts = (ArrayList<UserDetail>) future.get();
                 for (UserDetail detail : reuslts) {
